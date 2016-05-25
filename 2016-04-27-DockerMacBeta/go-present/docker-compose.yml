@@ -1,0 +1,7 @@
+go-present:
+  image: drmdrew/go-present
+  container_name: go-present
+  ports:
+    - 3999:3999
+  volumes:
+    - ..:/slides

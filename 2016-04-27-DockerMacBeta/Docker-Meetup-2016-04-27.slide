@@ -1,0 +1,68 @@
+Docker for Mac/Windows (BETA)
+Ottawa Docker Meetup
+19:00 27 Apr 2016
+Tags: docker mac windows beta meetup yow ottawa
+
+Drew MacInnis
+@drmdrew
+
+* Docker for Mac
+
+- Sign up for beta; get your invite
+.link https://beta.docker.com/docs/mac/getting-started/
+- Download DMG
+- Install
+.image images/docker-mac-dmg-install.png
+
+* Docker for Windows
+
+From https://beta.docker.com/docs/windows/getting-started:
+- The current version of Docker for Windows runs on 64bit Windows 10 Pro,
+Enterprise and Education (1511 November update, Build 10586 or later).
+In the future we will support more versions of Windows 10.
+
+* Gotcha for VirtualBox users on Mac!
+
+- pre-v5 VirtualBox doesn't play well with Docker for Mac (xhyve)
+.image images/docker-mac-old-virtualbox.png
+- ... so upgrade Virtualbox!
+.link https://www.virtualbox.org/wiki/Downloads
+
+* Docker in the Menu bar
+
+.image images/docker-mac-menubar.png
+
+* Docker client
+
+- docker client
+    └> docker --version
+    Docker version 1.11.0, build 4dc5990
+
+* Docker Settings
+
+.image images/docker-mac-settings.png
+
+* Under the covers
+
+- On Mac: xhyve!
+- From https://github.com/mist64/xhyve:
+```
+The xhyve hypervisor is a port of bhyve to OS X.
+It is built on top of Hypervisor.framework in OS X 10.10 Yosemite
+and higher, runs entirely in userspace, and has no other dependencies.
+```
+- On Windows: Built on top of Hyper-V
+
+* Demos
+
+- Docker for Mac (Beta)
+
+* Other Blogs about the beta
+
+.link https://medium.com/@nzoschke/docker-for-mac-beta-review-b91692289eb5#.phk3gjqi6
+
+* Questions
+
+????
+
+* Thank You!
