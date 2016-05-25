@@ -12,6 +12,10 @@ For reference, the end result of this workshop is hosted on GitHub:
 
 https://github.com/DockerOttawaMeetup/Workshops/tree/master/2016-05-25
 
+as are these slides themselves:
+
+https://github.com/DockerOttawaMeetup/Slides/blob/master/2016-05-25-DockerComposeWorkshop
+
 * Step 1a: Simple node-movies "Movie Database" project
 
 Create a simple node.js project and Dockerfile:
