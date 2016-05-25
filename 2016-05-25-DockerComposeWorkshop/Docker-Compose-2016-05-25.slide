@@ -1,0 +1,233 @@
+docker-compose Workshop
+Ottawa Docker Meetup
+19:00 25 May 2016
+Tags: docker docker-compose workshop yow ottawa
+
+Drew MacInnis & Andres Torres
+@drmdrew
+
+* docker-compose Workshop
+
+For reference, the end result of this workshop is hosted on GitHub:
+
+https://github.com/DockerOttawaMeetup/Workshops/tree/master/2016-05-25
+
+* Step 1a: Simple node-movies "Movie Database" project
+
+Create a simple node.js project and Dockerfile:
+
+    mkdir node-movies; cd node-movies
+
+create a simple package.json:
+
+    {
+      "name": "node-example",
+      "version": "0.0.1",
+      "engines": {
+        "node": ">= 6.2.0"
+      },
+      "private": true,
+      "scripts": {
+        "start": "node server.js",
+        },
+      "dependencies": {
+          "express": "~4.13.0"
+        },
+      "devDependencies": {}
+    }
+
+* Step 1b: Create "Hello World" version of node-movies
+
+    var express = require('express')
+    var app = express()
+    app.get('/', (req, res) => {
+      res.send('Hello World!')
+    })
+
+* Step 1c: Dockerize node-movies project
+
+Create a `Dockerfile`:
+
+    FROM node:6
+
+    RUN mkdir -p /usr/src/app
+    WORKDIR /usr/src/app
+
+    COPY package.json /usr/src/app/
+    RUN npm install
+
+    COPY . /usr/src/app
+
+    CMD [ "node", "server.js" ]
+
+* Step 1d: Build node-movies image
+
+Use `docker` to build a `dockerottawa/node-movies` container:
+
+    docker build -t dockerottawa/node-movies .
+
+You will see output like this:
+
+    Sending build context to Docker daemon 12.14 MB
+    Step 1 : FROM node:6
+    6: Pulling from library/node
+    51f5c6a04d83: Already exists
+    a3ed95caeb02: Pull complete
+    7004cfc6e122: Already exists
+    5f37c8a7cfbd: Already exists
+    8ad7684cace4: Already exists
+    2cc6b7c79e1c: Already exists
+    6452075b546a: Pull complete
+    Digest: sha256:337169d0377a8c6d077bbbc14513a4efbd9b7ef92dc256f4df06ba0af19ede69
+    Status: Downloaded newer image for node:6
+     ---> a6b9ffdcf522
+    Step 2 : RUN mkdir -p /usr/src/app
+
+* Step 1e: Create a simple docker-compose
+
+In the parent directory (`cd ..`), create a `docker-compose.yml`
+
+   node-movies:
+     image: dockerottawa/node-movies
+     container_name: node-movies
+     restart: always
+
+* Step 1f: docker-compose up
+
+Run:
+
+    docker-compose up -d
+
+You can see the containers created by running `docker ps`:
+
+    docker ps
+
+example output:
+
+    CONTAINER ID        IMAGE                      COMMAND
+    d20b6b5ef296        dockerottawa/node-movies   "node server.js"
+
+Do a quick test with a browser/curl/wget:
+
+    curl http://localhost:3000
+
+and we'll see our output `Hello World`.
+
+* Step 1: Done
+
+Ok... but this is kinda boring... and we really haven't _composed_ any containers
+yet.
+
+So... let's add MongoDB to the mix!
+
+* Step 2a: Add mongodb container
+
+Add a mongo container to our docker-compose.yml:
+
+    mongo:
+      image: mongo:2.6
+      container_name: mongo
+      restart: always
+      command: --smallfiles
+      ports:
+        - "27017:27017"
+      links:
+        - consul
+      volumes:
+        - mongo_data:/data/db
+
+* Step 2b: Add mongoose to node-movies project
+
+    var mongoose = require('mongoose')
+
+    var db = mongoose.connection
+    db.on('error', console.error)
+    db.once('open', function () {
+      console.log('Connected to mongo')
+    })
+
+    mongoose.connect(process.env.MONGO_URL || 'mongodb://mongo/test', err => {
+      if (err) {
+        console.log(err)
+        process.exit()
+      }
+      app.listen(3000, function () {
+        console.log('Example app listening on port 3000!')
+      })
+    })
+
+* Step 2c: Define mongoose schema and model
+
+    var movieSchema = mongoose.Schema({
+      title: String
+    })
+    var Movie = mongoose.model('Movie', movieSchema)
+
+    var movie1 = new Movie({ title: 'The Princess Bride' })
+    movie1.save((err, movie) => {
+      if (err) {
+        return console.error(err)
+      }
+    })
+
+* Step 2d: Add /movies endpoint
+
+    app.get('/movies', (req, res) => {
+      Movie.find({}, (err, movies) => {
+        if (err) {
+          res.send(500, err)
+        } else {
+          res.send(movies)
+        }
+      })
+    })
+
+* Step 2d: Add new dependencies to package.json
+
+    "mongodb": "^2.1.20",
+    "mongoose": "^4.4.19",
+
+Rebuild our docker container:
+
+    docker build -t dockerottawa/node-movies .
+
+* Step 2e: Re-run docker-compose up
+
+Interactively:
+
+  docker-compose up
+
+or detached:
+
+  docker-compose up -d
+
+And then run a quick (manual) test:
+
+  curl http://localhost:3000/movies
+
+* Step 3: Add registrator and consul (example)
+
+Add some additional containers just for fun:
+
+  consul:
+    image: gliderlabs/consul-server
+    container_name: consul
+    restart: always
+    command: -bootstrap-expect 1
+    ports:
+      - "8500:8500"
+  registrator:
+    image: gliderlabs/registrator
+    container_name: registrator
+    restart: always
+    links:
+      - consul
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock
+    command: consul://consul:8500
+
+* Questions
+
+????
+
+* Thank You!
