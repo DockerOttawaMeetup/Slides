@@ -102,7 +102,7 @@ from the Advanced Orchestration course._
   # create an overlay network
   docker network create --driver overlay dockercoins
   docker network ls
-
+  
   docker service create --network dockercoins --name redis redis
   docker service create --network dockercoins --name hasher hairyhenderson/dockercoins_hasher:0.1
   docker service create --network dockercoins --name rng hairyhenderson/dockercoins_rng:0.1
@@ -122,7 +122,7 @@ from the Advanced Orchestration course._
 - Time for a rolling update
   ```bash
   docker service update rng --update-parallelism 2 --update-delay 5s
-  docker service update rng --image hariyhenderson/dockercoins_rng:0.2
+  docker service update rng --image hairyhenderson/dockercoins_rng:0.2
   ```
 
 _Fin._
