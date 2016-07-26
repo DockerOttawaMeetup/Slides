@@ -1,0 +1,14 @@
+version: '2'
+
+services:
+  slides:
+    image: hairyhenderson/remarkjs
+    volumes:
+      - ./Notes.md:/slides.md
+    environment:
+      - TITLE=Using ENTRYPOINTs for fun and profit
+      - HIGHLIGHT_LINES=true
+      - HIGHLIGHT_SPANS=true
+      - RATIO=16:9
+    ports:
+      - 8080:80
