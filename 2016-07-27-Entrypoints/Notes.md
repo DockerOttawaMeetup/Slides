@@ -53,7 +53,7 @@ Demo this too!
 Useful for:
 
 ```bash
-alias figlet=docker run figlet
+alias figlet="docker run figlet"
 ```
 
 ???
