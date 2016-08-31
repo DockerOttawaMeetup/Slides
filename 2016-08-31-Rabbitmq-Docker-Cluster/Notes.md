@@ -5,9 +5,17 @@ background-size: 64px
 background-position: right 12px bottom 40px
 
 ---
+
 class: middle, center
 # A Docker Clustering Example Using RabbitMQ
 _Etienne Dufresne, August 2016_
+
+---
+
+# GitHub Repo
+
+https://github.com/EtienneDufresne/rabbitmq-docker-cluster
+
 ---
 
 ## What is RabbitMQ?
