@@ -1,0 +1,14 @@
+version: '2.0'
+
+services:
+  slides:
+    image: hairyhenderson/remarkjs
+    volumes:
+      - ./Notes.md:/slides.md
+    environment:
+      - TITLE=Docker HEALTHCHECKs
+      - HIGHLIGHT_LINES=true
+      - HIGHLIGHT_SPANS=true
+      - RATIO=16:9
+    ports:
+      - 8080:80
