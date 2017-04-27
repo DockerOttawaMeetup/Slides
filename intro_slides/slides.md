@@ -59,6 +59,7 @@ We are dedicated to providing a harassment free experience for everyone
 
 ## Housekeeping
 
+- Free Docker Training! https://training.play-with-docker.com
 - Topic idea for future meetups? https://bit.ly/DockerOttawaIdeas
 - Slides available at https://bit.ly/DockerOttawaSlides
 - Connect with local Ottawa tech community in YOWDev Slack: https://bit.ly/yowdev
