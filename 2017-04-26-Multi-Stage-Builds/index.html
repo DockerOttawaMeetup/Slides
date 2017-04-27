@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Dockerfile: Multi-Stage and ARG in FROM</title>
+    <meta charset="utf-8">
+    <style>
+      @import url(https://fonts.googleapis.com/css?family=Bree+Serif);
+      @import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic);
+      @import url(https://fonts.googleapis.com/css?family=Source+Code+Pro);
+
+      body { font-family: 'Droid Serif'; }
+      h1, h2, h3 {
+        font-family: 'Bree Serif';
+        font-weight: normal;
+      }
+      .remark-code, .remark-inline-code { font-family: 'Source Code Pro'; }
+    </style>
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle
+
+# Dockerfile: Multi-Stage and ARG in FROM
+
+---
+
+# Agenda
+
+1. Dockerfile: ARG in FROM
+2. Dockerfile: Multi-Stage Builds
+3. Demo
+
+---
+
+<img src="images/photo1.jpeg" height="200px"><br/>
+<img src="images/photo3.jpeg" height="200px"><br/>
+<img src="images/photo2.jpeg" height="200px"><br/>
+
+---
+
+# Dockerfile: ARG in FROM
+
+Dockerfile:
+```
+ARG GO_VERSION=1.8
+FROM golang:${GO_VERSION}
+ADD . /src
+WORKDIR /src
+RUN go build -o hello
+CMD ["./hello"]
+```
+
+Build it:
+* `IMAGE=dockerottawa/hello`
+* `docker build -t $IMAGE .`
+* `docker build --build-arg GO_VERSION=latest -t $IMAGE .`
+* `docker build --build-arg GO_VERSION=1.4 -t $IMAGE .`
+
+Run it:
+* `docker run --rm dockerottawa/hello`
+
+---
+
+# Dockerfile: Multi-Stage Builds
+
+Dockerfile:
+
+```
+# 1. Stage 1: build our hello binary
+ARG GO_VERSION=1.8
+FROM golang:${GO_VERSION} AS build-hello
+ADD . /src
+WORKDIR /src
+RUN go build -o hello
+
+# 2. Stage 2: our minimal runtime... from scratch!
+FROM scratch
+COPY --from=build-hello src/hello hello
+CMD ["./hello"]
+```
+
+Build it:
+* `docker build -t dockerottawa/hello .`
+
+Check the size:
+* `docker images | grep dockerottawa/hello`
+
+---
+
+# DEMO
+
+Note: For the demo I'm using `17.05.0-ce-rc1-mac8 (16582)`
+from the edge channel.
+
+One play-with-docker.com, check the `docker version` it may
+not (yet) be compatible.
+
+---
+
+# Thank You
+
+<img src="images/party1.jpeg" height="400px">
+
+    </textarea>
+    <script src="https://remarkjs.com/downloads/remark-latest.min.js">
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js">
+    </script>
+    <script>
+      var slideshow = remark.create();
+    </script>
+  </body>
+</html>
