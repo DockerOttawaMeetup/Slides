@@ -1,0 +1,40 @@
+hash: 284c7f1b8eead9e5cf91c39fbc2468c0366fa253d00a455822f7f1bdc2409ccd
+updated: 2017-05-31T01:24:57.434180649Z
+imports:
+- name: github.com/armon/go-metrics
+  version: 8ccd3f0cbe48a53668a9615f15ffe95c0526cff4
+- name: github.com/dimfeld/httppath
+  version: c8e499c3ef3c3e272ed8bdcc1ccf39f73c88debc
+- name: github.com/dimfeld/httptreemux
+  version: 86f7c217d9043ebc6adfd8e2ed04a0bb1e1db651
+- name: github.com/goadesign/goa
+  version: 58f3177f36f2c50ee6119da92795e48bac6d6243
+  subpackages:
+  - client
+  - cors
+  - design
+  - design/apidsl
+  - dslengine
+  - goagen
+  - goatest
+  - middleware
+  - uuid
+- name: github.com/inconshreveable/mousetrap
+  version: 76626ae9c91c4f2a10f34cad8ce83ea42c93bb75
+- name: github.com/manveru/faker
+  version: 717f7cf83fb78669bfab612749c2e8ff63d5be11
+- name: github.com/satori/go.uuid
+  version: 5bf94b69c6b68ee1b541973bb8e1144db23a194b
+- name: github.com/spf13/cobra
+  version: e606913c4ee45fec232e67e70105fb6c866b95d9
+- name: github.com/spf13/pflag
+  version: e57e3eeb33f795204c1ca35f56c44f83227c6e66
+- name: github.com/zach-klippenstein/goregen
+  version: 795b5e3961ea1912fde60af417ad85e86acc0d6a
+- name: golang.org/x/net
+  version: 3da985ce5951d99de868be4385f21ea6c2b22f24
+  subpackages:
+  - websocket
+- name: gopkg.in/yaml.v2
+  version: cd8b52f8269e0feb286dfeef29f8fe4d5b397e0b
+testImports: []

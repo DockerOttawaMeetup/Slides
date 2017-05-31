@@ -1,0 +1,199 @@
+consumes:
+- application/json
+- application/xml
+- application/gob
+- application/x-gob
+definitions:
+  Json:
+    description: service health (default view)
+    example:
+      hostname: Non suscipit.
+    properties:
+      hostname:
+        example: Non suscipit.
+        type: string
+    title: 'Mediatype identifier: application/json; view=default'
+    type: object
+  WsnPost:
+    description: A post (default view)
+    example:
+      body: Adipisci quo.
+      id: 3.2129316e+18
+      title: Nihil porro.
+      userId: 5.5963625e+18
+    properties:
+      body:
+        description: post body
+        example: Adipisci quo.
+        type: string
+      id:
+        description: Unique post ID
+        example: 3.2129316e+18
+        format: int64
+        type: integer
+      title:
+        description: post title
+        example: Nihil porro.
+        type: string
+      userId:
+        description: Owner's ID
+        example: 5.5963625e+18
+        format: int64
+        type: integer
+    required:
+    - id
+    - title
+    - body
+    - userId
+    title: 'Mediatype identifier: application/vnd.wsn.post+json; view=default'
+    type: object
+  error:
+    description: Error response media type (default view)
+    example:
+      code: invalid_value
+      detail: Value of ID must be an integer
+      id: 3F1FKVRR
+      meta:
+        timestamp: 1.458609e+09
+      status: "400"
+    properties:
+      code:
+        description: an application-specific error code, expressed as a string value.
+        example: invalid_value
+        type: string
+      detail:
+        description: a human-readable explanation specific to this occurrence of the
+          problem.
+        example: Value of ID must be an integer
+        type: string
+      id:
+        description: a unique identifier for this particular occurrence of the problem.
+        example: 3F1FKVRR
+        type: string
+      meta:
+        additionalProperties: true
+        description: a meta object containing non-standard meta-information about
+          the error.
+        example:
+          timestamp: 1.458609e+09
+        type: object
+      status:
+        description: the HTTP status code applicable to this problem, expressed as
+          a string value.
+        example: "400"
+        type: string
+    title: 'Mediatype identifier: application/vnd.goa.error; view=default'
+    type: object
+host: localhost:8000
+info:
+  description: A terrible social network
+  title: The worst social network
+  version: ""
+paths:
+  /health:
+    get:
+      description: show health
+      operationId: health#show
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/Json'
+      schemes:
+      - http
+      summary: show health
+      tags:
+      - health
+  /js/{filepath}:
+    get:
+      operationId: public#/js/*filepath
+      parameters:
+      - description: Relative file path
+        in: path
+        name: filepath
+        required: true
+        type: string
+      responses:
+        "200":
+          description: File downloaded
+          schema:
+            type: file
+        "404":
+          description: File not found
+          schema:
+            $ref: '#/definitions/error'
+      schemes:
+      - http
+      summary: Download public/js/
+  /posts/{postID}:
+    get:
+      description: Get post by id
+      operationId: post#show
+      parameters:
+      - description: Post ID
+        in: path
+        name: postID
+        required: true
+        type: integer
+      produces:
+      - application/vnd.wsn.post+json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/WsnPost'
+        "404":
+          description: Not Found
+      schemes:
+      - http
+      summary: show post
+      tags:
+      - post
+  /schema.json:
+    get:
+      operationId: public#/schema.json
+      responses:
+        "200":
+          description: File downloaded
+          schema:
+            type: file
+      schemes:
+      - http
+      summary: Download public/schema/schema.json
+  /swagger.json:
+    get:
+      operationId: public#/swagger.json
+      responses:
+        "200":
+          description: File downloaded
+          schema:
+            type: file
+      schemes:
+      - http
+      summary: Download public/swagger/swagger.json
+  /ui:
+    get:
+      operationId: public#/ui
+      responses:
+        "200":
+          description: File downloaded
+          schema:
+            type: file
+      schemes:
+      - http
+      summary: Download public/html/index.html
+produces:
+- application/json
+- application/xml
+- application/gob
+- application/x-gob
+responses:
+  NotFound:
+    description: Not Found
+  OK:
+    description: OK
+    schema:
+      $ref: '#/definitions/Json'
+schemes:
+- http
+swagger: "2.0"
