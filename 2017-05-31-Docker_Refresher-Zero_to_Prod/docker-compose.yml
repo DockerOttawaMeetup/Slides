@@ -1,0 +1,16 @@
+version: '2.0'
+
+services:
+  slides:
+    image: hairyhenderson/remarkjs
+    volumes:
+      - ./slides.md:/slides.md
+      - ./slides.md:/usr/share/nginx/html/slides.md
+    environment:
+      - DEV_MODE=true
+      - TITLE=Docker Refresher
+      - HIGHLIGHT_LINES=true
+      - HIGHLIGHT_SPANS=true
+      - RATIO=16:9
+    ports:
+      - 8080:80

@@ -1,0 +1,15 @@
+package: github.com/hairyhenderson/restdemo
+import:
+- package: github.com/goadesign/goa
+  version: ^1.2.0
+  subpackages:
+  - client
+  - design
+  - design/apidsl
+  - dslengine
+  - goagen
+  - middleware
+- package: github.com/spf13/cobra
+- package: github.com/spf13/pflag
+- package: gopkg.in/yaml.v2
+- package: github.com/armon/go-metrics

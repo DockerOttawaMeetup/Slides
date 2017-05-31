@@ -1,0 +1,9 @@
+version: '3.2'
+
+services:
+  restdemo:
+    build: .
+    volumes:
+      - .:/go/src/github.com/hairyhenderson/restdemo
+    ports:
+      - "8000:8000"
