@@ -1,0 +1,17 @@
+version: '2.0'
+
+services:
+  slides:
+    restart: always
+    image: hairyhenderson/remarkjs
+    volumes:
+      - ./slides.md:/slides.md
+      - ./slides.md:/usr/share/nginx/html/slides.md
+    environment:
+      - DEV_MODE=true
+      - TITLE=What's new in Docker 17.06
+      - HIGHLIGHT_LINES=true
+      - HIGHLIGHT_SPANS=true
+      - RATIO=16:9
+    ports:
+      - 8080:80
