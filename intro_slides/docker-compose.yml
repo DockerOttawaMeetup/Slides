@@ -7,6 +7,7 @@ services:
       # - ./slides.md:/slides.md
       - ./index.html.tmpl:/index.html.tmpl
       - ./slides.md:/usr/share/nginx/html/slides.md
+      - ./images:/usr/share/nginx/html/images
     environment:
       - DEV_MODE=true
       - TITLE=Docker Ottawa Meetup
@@ -14,4 +15,4 @@ services:
       - HIGHLIGHT_SPANS=true
       - RATIO=16:9
     ports:
-      - 8080:80
+      - 8081:80
