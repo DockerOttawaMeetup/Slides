@@ -1,13 +1,13 @@
 layout: true
 
-background-image: url(https://raw.githubusercontent.com/DockerOttawaMeetup/Slides/master/ottawa-docker-logo.jpg)
+background-image: url(./images/small-ottawa-v4.png)
 background-size: 64px
 background-position: right 12px bottom 40px
 
 ---
 class: middle, center
 
-![](https://raw.githubusercontent.com/DockerOttawaMeetup/Slides/master/ottawa-docker-logo.jpg)
+![](./images/small-ottawa-v4.png)
 
 # Docker Ottawa Meetup
 
