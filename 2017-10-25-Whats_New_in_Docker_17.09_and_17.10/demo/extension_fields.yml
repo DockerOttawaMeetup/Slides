@@ -1,0 +1,44 @@
+version: '3.4'
+
+x-common: &common
+  labels:
+    - awesomelabel=foo
+  deploy:
+    placement:
+      constraints:
+        - 'node.platform.os == linux'
+  networks:
+    - foo
+
+services:
+  redis:
+    <<: *common
+    image: redis
+    deploy:
+      replicas: 2
+      update_config:
+        order: start-first
+    ports:
+      - 6379:6379
+  ping:
+    <<: *common
+    image: alpine:3.6
+    command: ping redis
+    deploy:
+      update_config:
+        order: stop-first
+  echo:
+    image: alpine:3.6
+    command: env
+    deploy:
+      restart_policy:
+        condition: any
+        delay: 10s
+    environment:
+      - NODE_HOSTNAME={{.Node.Hostname}}
+    networks:
+      - foo
+
+networks:
+  foo:
+    driver: overlay
