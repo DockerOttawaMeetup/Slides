@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Dockerfile: Multi-Stage and ARG in FROM</title>
+    <meta charset="utf-8">
+    <style>
+      @import url(https://fonts.googleapis.com/css?family=Bree+Serif);
+      @import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic);
+      @import url(https://fonts.googleapis.com/css?family=Source+Code+Pro);
+
+      body { font-family: 'Droid Serif'; }
+      h1, h2, h3 {
+        font-family: 'Bree Serif';
+        font-weight: normal;
+      }
+      .remark-code, .remark-inline-code { font-family: 'Source Code Pro'; }
+    </style>
+  </head>
+  <body>
+    <textarea id="source">
+        <!-- slide content is loaded here -->
+    </textarea>
+    <script src="https://remarkjs.com/downloads/remark-latest.min.js">
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js">
+    </script>
+    <script>
+        $( document ).ready(function() {
+            $.ajax({
+                url: "slides.md",
+                context: document.body,
+                success: function(markdown) {
+                    console.log("loaded slides.md text")
+                    $("#source").text(markdown)
+                    console.log("slideshow: remark.create() called")
+                    var slideshow = remark.create();
+                }
+            })
+        })
+    </script>
+  </body>
+</html>
