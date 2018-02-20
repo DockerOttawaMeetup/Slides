@@ -1,0 +1,14 @@
+version: '3.4'
+
+services:
+  redis:
+    image: redis
+    volumes:
+      - redisVol:/data
+    deploy:
+      replicas: 3
+
+volumes:
+  redisVol:
+    driver: local
+    name: redisVol-{{.Task.Slot}}
