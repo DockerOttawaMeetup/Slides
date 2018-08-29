@@ -1,0 +1,10 @@
+version: '3.2'
+
+services:
+  slides:
+    restart: always
+    image: nginx:alpine
+    volumes:
+      - .:/usr/share/nginx/html:ro
+    ports:
+      - 8080:80
