@@ -51,7 +51,7 @@ We are dedicated to providing a harassment free experience for everyone
 
 ## Thank you to our sponsors!
 
-.center[<img src="https://qlikid.qlik.com/files/QlikLogo.png" style="width: 40%; position: relative">]
+.center[<img src="https://www.qlik.com/us/-/media/images/qlik/global/qlik-logo-2x.png" style="width: 40%; position: relative">]
 
 <span style="position: fixed; bottom: 7.5%">_Let us know if your company is interested in sponsoring a future meetup!_</span>
 
